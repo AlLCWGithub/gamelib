@@ -7,25 +7,23 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest  # Use Windows environment
-    
+    runs-on: windows-latest  # Run on the latest Windows runner
+
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2  # Checkout the repository
 
     - name: Set up MinGW
-      uses: msys2/setup-msys2-action@v2
+      uses: msys2/setup-msys2-action@v4  # Set up MinGW using the MSYS2 action (v4)
       with:
-        msys2_packages: 'mingw-w64-x86_64-gcc'  # Installing MinGW with GCC for compilation
+        msys2-version: '20200724'  # Specify the MSYS2 version
 
-    - name: Compile C Program
+    - name: Compile C code to EXE
       run: |
-        mkdir build
-        cd build
-        x86_64-w64-mingw32-gcc ../tictactoe.c -o tictactoe.exe  # Compile the program
+        x86_64-w64-mingw32-gcc -o app-debug.exe tictactoe.c  # Compile the program into app-debug.exe
 
-    - name: Upload EXE as Artifact
-      uses: actions/upload-artifact@v4
+    - name: Upload the compiled EXE as artifact
+      uses: actions/upload-artifact@v2  # Upload the EXE as an artifact
       with:
-        name: tictactoe-exe
-        path: build/tictactoe.exe  # Path where the EXE is saved
+        name: app-debug  # Artifact name in GitHub UI
+        path: app-debug.exe  # Path to the compiled EXE file
