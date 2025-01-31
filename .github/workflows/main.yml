@@ -1,4 +1,4 @@
-name: Build C Programs to EXE
+name: Compile C Program into EXE
 
 on:
   push:
@@ -7,22 +7,25 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-latest  # Use Windows environment
+    
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - name: Checkout Code
+      uses: actions/checkout@v2
 
-      - name: Set up MinGW
-        run: |
-          choco install mingw
+    - name: Set up MinGW
+      uses: msys2/setup-msys2-action@v2
+      with:
+        msys2_packages: 'mingw-w64-x86_64-gcc'  # Installing MinGW with GCC for compilation
 
-      - name: Compile C program to app-debug.exe
-        run: |
-          x86_64-w64-mingw32-gcc -o app-debug.exe tictactoe.c
-          dir   # List directory contents to ensure the .exe is created
+    - name: Compile C Program
+      run: |
+        mkdir build
+        cd build
+        x86_64-w64-mingw32-gcc ../tictactoe.c -o tictactoe.exe  # Compile the program
 
-      - name: Upload EXE file as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: compiled-exe
-          path: ./app-debug.exe  # Path where app-debug.exe is created
+    - name: Upload EXE as Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: tictactoe-exe
+        path: build/tictactoe.exe  # Path where the EXE is saved
