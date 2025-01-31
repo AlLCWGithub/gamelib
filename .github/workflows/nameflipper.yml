@@ -1,4 +1,4 @@
-name: Build nameflipper from C to EXE
+name: Build nameflipper
 
 on:
   push:
