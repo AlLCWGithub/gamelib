@@ -22,9 +22,9 @@ jobs:
       - name: Compile C file to EXE
         run: x86_64-w64-mingw32-gcc -o my_program.exe my_program.c  # Replace with your .c file name
 
-      # Step 4: Upload the compiled EXE as an artifact (Updated to v3)
+      # Step 4: Upload the compiled EXE as an artifact (Updated to v4)
       - name: Upload EXE as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: my_program.exe  # Name of the file to upload
           path: my_program.exe  # Path to the compiled .exe file
