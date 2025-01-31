@@ -16,13 +16,13 @@ jobs:
         run: |
           choco install mingw
 
-      - name: Compile C program to .exe
+      - name: Compile C program to app-debug.exe
         run: |
-          x86_64-w64-mingw32-gcc -o tictactoe.exe tictactoe.c
-          dir
+          x86_64-w64-mingw32-gcc -o app-debug.exe tictactoe.c
+          dir   # List directory contents to ensure the .exe is created
 
       - name: Upload EXE file as artifact
         uses: actions/upload-artifact@v4
         with:
           name: compiled-exe
-          path: ./my_program.exe
+          path: ./app-debug.exe  # Path where app-debug.exe is created
