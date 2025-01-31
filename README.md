@@ -1,2 +1,2 @@
-# tictactoe
+# game
 game
