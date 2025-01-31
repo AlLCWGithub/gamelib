@@ -1,4 +1,4 @@
-name: Compile C Program into EXE
+name: Build C Program to EXE
 
 on:
   push:
@@ -7,28 +7,20 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest  # Use the latest Windows runner
-
+    runs-on: windows-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2  # Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Download and install MinGW-w64
-      run: |
-        # Download the MinGW installer from SourceForge
-        Invoke-WebRequest -Uri https://sourceforge.net/projects/mingw-w64/files/latest/download -OutFile mingw-w64-installer.exe
-        # Run the installer silently
-        Start-Process mingw-w64-installer.exe -ArgumentList "/S" -NoNewWindow -Wait
-        # Add MinGW to PATH (adjust path if needed based on installation directory)
-        $env:PATH += ";C:\mingw-w64\bin"
+      - name: Set up MinGW
+        run: |
+          choco install mingw
 
-    - name: Compile C code to EXE
-      run: |
-        # Compile the C file into an executable
-        C:\mingw-w64\bin\x86_64-w64-mingw32-gcc -o app-debug.exe tictactoe.c
+      - name: Compile C program to .exe
+        run: x86_64-w64-mingw32-gcc -o tictactoe.exe tictactoe.c
 
-    - name: Upload the compiled EXE as artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: app-debug  # Name of the artifact
-        path: app-debug.exe  # Path to the compiled EXE
+      - name: Upload EXE file as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tictactoe
+          path: tictactoe.exe
