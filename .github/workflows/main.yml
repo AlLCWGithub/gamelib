@@ -14,16 +14,16 @@ jobs:
       uses: actions/checkout@v2  # Checkout the repository
 
     - name: Set up MinGW
-      uses: msys2/setup-msys2-action@v4  # Set up MinGW using the MSYS2 action (v4)
-      with:
-        msys2-version: '20200724'  # Specify the MSYS2 version
+      run: |
+        choco install mingw
+        refreshenv  # Install MinGW via Chocolatey package manager
 
     - name: Compile C code to EXE
       run: |
         x86_64-w64-mingw32-gcc -o app-debug.exe tictactoe.c  # Compile the program into app-debug.exe
 
     - name: Upload the compiled EXE as artifact
-      uses: actions/upload-artifact@v2  # Upload the EXE as an artifact
+      uses: actions/upload-artifact@v3  # Use the latest v3 version of upload-artifact
       with:
         name: app-debug  # Artifact name in GitHub UI
         path: app-debug.exe  # Path to the compiled EXE file
