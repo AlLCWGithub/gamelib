@@ -5,8 +5,8 @@
 #include <time.h>
 
 char board[3][3];
-const char PLAYER = '$';
-const char COMPUTER = '@';
+const char PLAYER = 'X';
+const char COMPUTER = 'O';
 void resetboard();
 void printboard();
 int checkspaces();
