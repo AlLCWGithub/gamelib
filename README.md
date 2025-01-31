@@ -1,2 +1,2 @@
 # tictactoe
-Tic Tac Toe Code
+game
