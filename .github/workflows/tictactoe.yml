@@ -1,9 +1,7 @@
 name: Build tictactoe
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispath:
 
 jobs:
   build:
