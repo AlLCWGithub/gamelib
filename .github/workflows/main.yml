@@ -1,0 +1,26 @@
+name: C Compiler for Windows
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Install MinGW (cross-compiler)
+        run: sudo apt-get install -y mingw-w64
+
+      - name: Compile C code for Windows
+        run: x86_64-w64-mingw32-gcc -o output_program.exe main.c  # Compiling to Windows .exe
+
+      - name: Upload Executable
+        uses: actions/upload-artifact@v2
+        with:
+          name: compiled-executable
+          path: output_program.exe
