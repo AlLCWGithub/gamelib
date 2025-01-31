@@ -1,4 +1,4 @@
-name: Build Tictactoe
+name: Build tictactoe
 
 on:
   push:
