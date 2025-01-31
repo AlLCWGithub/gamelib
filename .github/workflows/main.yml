@@ -7,12 +7,28 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest  # Run on the latest Windows runner
+    runs-on: windows-latest  # Use the latest Windows runner
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2  # Checkout the repository
 
-    - name: Set up MinGW
+    - name: Download and install MinGW-w64
       run: |
-        choco
+        # Download the MinGW installer from SourceForge
+        Invoke-WebRequest -Uri https://sourceforge.net/projects/mingw-w64/files/latest/download -OutFile mingw-w64-installer.exe
+        # Run the installer silently
+        Start-Process mingw-w64-installer.exe -ArgumentList "/S" -NoNewWindow -Wait
+        # Add MinGW to PATH (adjust path if needed based on installation directory)
+        $env:PATH += ";C:\mingw-w64\bin"
+
+    - name: Compile C code to EXE
+      run: |
+        # Compile the C file into an executable
+        C:\mingw-w64\bin\x86_64-w64-mingw32-gcc -o app-debug.exe tictactoe.c
+
+    - name: Upload the compiled EXE as artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-debug  # Name of the artifact
+        path: app-debug.exe  # Path to the compiled EXE
