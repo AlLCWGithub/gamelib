@@ -1,4 +1,4 @@
-name: Build C Program
+name: Build All C Programs to EXE
 
 on:
   push:
@@ -7,14 +7,28 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-
+    runs-on: windows-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Install MinGW-w64
-      run: sudo apt-get install -y mingw-w64
+      - name: Set up MinGW
+        uses: msys2/setup-msys2-action@v2
+        with:
+          msystem: MINGW64
 
-    - name: Compile C program
-      run: x86_64-w64-mingw32-gcc -o my_program.exe my_program.c
+      - name: Install GCC
+        run: pacman -S --noconfirm mingw-w64-x86_64-gcc
+
+      - name: Compile all C files
+        run: |
+          for file in *.c; do
+            output="${file%.c}.exe"
+            x86_64-w64-mingw32-gcc -o "$output" "$file"
+          done
+
+      - name: Upload all EXE files as artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: compiled-exes
+          path: '*.exe'
