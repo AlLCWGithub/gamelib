@@ -15,15 +15,4 @@ jobs:
 
     - name: Set up MinGW
       run: |
-        choco install mingw
-        refreshenv  # Install MinGW via Chocolatey package manager
-
-    - name: Compile C code to EXE
-      run: |
-        x86_64-w64-mingw32-gcc -o app-debug.exe tictactoe.c  # Compile the program into app-debug.exe
-
-    - name: Upload the compiled EXE as artifact
-      uses: actions/upload-artifact@v3  # Use the latest v3 version of upload-artifact
-      with:
-        name: app-debug  # Artifact name in GitHub UI
-        path: app-debug.exe  # Path to the compiled EXE file
+        choco
