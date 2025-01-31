@@ -1,0 +1,24 @@
+name: Build menu
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up MinGW
+        run: |
+          choco install mingw
+
+      - name: Compile C program to .exe
+        run: x86_64-w64-mingw32-gcc -o menu.exe menu.c
+
+      - name: Upload EXE file as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: menu
+          path: menu.exe
