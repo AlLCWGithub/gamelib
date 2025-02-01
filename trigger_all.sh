@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # List all workflows
-workflows=("tictactoe.yml" "calculator.yml" "nameflipper.yml" "menu.yml")
+workflows=("tictactoe.yml" "calculator.yml" "nameflipper.yml" "menu.yml" "chatgptgame.yml")
 
 # Trigger each workflow
 for workflow in "${workflows[@]}"; do
