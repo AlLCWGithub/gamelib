@@ -5,3 +5,4 @@ game
 image of starhorse berry because yes
 <br>click on the image to go to brawl stars website<p>
 ![Stars](https://img.shields.io/github/stars/AlLCWGithub/gamelib?style=for-the-badge)
+![Forks](https://img.shields.io/github/forks/AlLCWGithub/gamelib?style=for-the-badge)
