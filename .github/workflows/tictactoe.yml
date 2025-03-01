@@ -18,25 +18,33 @@ jobs:
       - name: Setup compiler (Linux)
         if: matrix.os == 'ubuntu-latest'
         run: |
-          sudo apt-get remove gcc -y
           sudo apt-get update
           sudo apt-get install gcc-aarch64-linux-gnu
           aarch64-linux-gnu-gcc --version
       - name: Compile .c to .exe (Windows)
         if: matrix.os == 'windows-latest'
         run: gcc tictactoe.c -o tictactoe.exe
-      - name: Compile .c to .out (Linux)
+      - name: Compile .c to .out (Linux x86)
         if: matrix.os == 'ubuntu-latest'
-        run: gcc tictactoe.c -o tictactoe.out
+        run: gcc tictactoe.c -o tictactoe-x86.out
+      - name: Compile .c to .out (Linux arm64)
+        if: matrix.os == 'ubuntu-latest'
+        run: aarch64-linux-gnu-gcc tictactoe.c -o tictactoe-arm64.out
       - name: Upload artifact (Windows)
         if: matrix.os == 'windows-latest'
         uses: actions/upload-artifact@v4
         with:
           name: tictactoe-windows
           path: tictactoe.exe
-      - name: Upload artifact (Linux)
+      - name: Upload artifact (Linux x86)
         if: matrix.os == 'ubuntu-latest'
         uses: actions/upload-artifact@v4
         with:
-          name: tictactoe-linux
-          path: tictactoe.out
+          name: tictactoe-linux-x86
+          path: tictactoe-x86.out
+      - name: Upload artifact (Linux arm64)
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: tictactoe-linux-arm64
+          path: tictactoe-arm64.out
