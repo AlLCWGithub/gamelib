@@ -17,7 +17,11 @@ jobs:
           gcc --version
       - name: Setup compiler (Linux)
         if: matrix.os == 'ubuntu-latest'
-        run: gcc --version
+        run: |
+          sudo apt-get remove gcc -y
+          sudo apt-get update
+          sudo apt-get install gcc-aarch64-linux-gnu
+          gcc --version
       - name: Compile .c to .exe (Windows)
         if: matrix.os == 'windows-latest'
         run: gcc tictactoe.c -o tictactoe.exe
