@@ -1,23 +1,38 @@
 name: Build tictactoe
-
 on:
-  workflow_dispatch:
-
+  workflow_dispatch
 jobs:
   build:
-    runs-on: windows-latest
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set up MinGW
-        run: choco install mingw
-
-      - name: Compile C program to .exe
-        run: x86_64-w64-mingw32-gcc -o tictactoe.exe tictactoe.c
-
-      - name: Upload EXE file as artifact
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup compiler (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          choco install mingw
+          gcc --version
+      - name: Setup compiler (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        run: gcc --version
+      - name: Compile .c to .exe (Windows)
+        if: matrix.os == 'windows-latest'
+        run: gcc tictactoe.c -o tictactoe.exe
+      - name: Compile .c to .out (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        run: gcc tictactoe.c -o tictactoe.out
+      - name: Upload artifact (Windows)
+        if: matrix.os == 'windows-latest'
         uses: actions/upload-artifact@v4
         with:
-          name: tictactoe
+          name: tictactoe-windows
           path: tictactoe.exe
+      - name: Upload artifact (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: tictactoe-linux
+          path: tictactoe.out
