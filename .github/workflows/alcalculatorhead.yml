@@ -1,4 +1,4 @@
-name: Build alcalculator
+name: Build alcalculatorhead
 
 on:
   workflow_dispatch:
@@ -13,11 +13,17 @@ jobs:
       - name: Set up MinGW
         run: choco install mingw
 
-      - name: Compile C program to .exe
-        run: x86_64-w64-mingw32-gcc -o alcalculator.exe alcalculator.c
+      - name: Change directory to testhead
+        run: cd testhead
 
-      - name: Upload EXE file as artifact
+      - name: Compile C program to .exe
+        run: x86_64-w64-mingw32-gcc -o alcalculatorhead.exe alcalculatorhead.c
+
+      - name: Upload testhead directory as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: alcalculator
-          path: alcalculator.exe
+          name: alcalculatorhead
+          path: |
+            alcalculatorhead.exe
+            almath.h
+            almath.c
