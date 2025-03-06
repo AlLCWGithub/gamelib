@@ -14,7 +14,7 @@ jobs:
         run: choco install mingw
 
       - name: Compile C program to .exe
-        run: x86_64-w64-mingw32-gcc -o alcalculator.exe alcalculator.c almath.c
+        run: x86_64-w64-mingw32-gcc -o alcalculator.exe alcalculator.c
 
       - name: Upload EXE file as artifact
         uses: actions/upload-artifact@v4
