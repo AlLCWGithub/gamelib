@@ -16,7 +16,7 @@ jobs:
       - name: Compile C program to .exe
         run: |
           cd headtest
-          x86_64-w64-mingw32-gcc -o alcalculatorhead.exe alcalculatorhead.c alcalculator.c
+          x86_64-w64-mingw32-gcc -o alcalculatorhead.exe alcalculatorhead.c almath.c
 
       - name: Upload testhead directory as artifact
         uses: actions/upload-artifact@v4
