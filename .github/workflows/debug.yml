@@ -11,4 +11,6 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Compile C program to .exe
-        run: echo pwd && echo dir
+        run: |
+          pwd
+          dir
