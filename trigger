@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # List of workflows
-workflows=("tictactoe.yml" "calculator.yml" "nameflipper.yml" "menu.yml" "chatgptgame.yml" "triangle.yml")
+workflows=("tictactoe.yml" "calculator.yml" "nameflipper.yml" "menu.yml" "chatgptgame.yml" "triangle.yml" "alcalculator.yml")
 
 # Branch name (can be dynamically set or hardcoded)
 branch="main"
