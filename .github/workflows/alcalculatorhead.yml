@@ -23,6 +23,6 @@ jobs:
         with:
           name: alcalculatorhead
           path: |
-            alcalculatorhead.exe
-            almath.h
-            almath.c
+            headtest/alcalculatorhead.exe
+            headtest/almath.h
+            headtest/almath.c
