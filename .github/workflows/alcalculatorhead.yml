@@ -13,8 +13,8 @@ jobs:
       - name: Set up MinGW
         run: choco install mingw
 
-      - name: Change directory to testhead
-        run: cd testhead
+      - name: Change directory to headtest
+        run: cd headtest
 
       - name: Compile C program to .exe
         run: x86_64-w64-mingw32-gcc -o alcalculatorhead.exe alcalculatorhead.c
